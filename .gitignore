@@ -1,0 +1,6 @@
+*.pdf
+*.ipynb
+*.vscode
+eq_graphs/
+mdim_graphs/
+

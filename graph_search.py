@@ -102,7 +102,7 @@ if __name__ == "__main__":
     correct_graphs_mdim = []
 
     # read max_n from terminal argument if given
-    # usage: python -i dev.py 99
+    # usage: python -i graph_search.py 99
     max_n = int(sys.argv[1]) if len(sys.argv) > 1 else 5
     for n in range(1, max_n + 1):
         print(f"n={n}")
