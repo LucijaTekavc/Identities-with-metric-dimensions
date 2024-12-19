@@ -118,10 +118,10 @@ if __name__ == "__main__":
             mdim = get_mixed_metric_dimension(g, dist_to_edges)
 
             if dim == edim == mdim:
-                g.export_to_file(f"eq_graphs/{n}_{i}_graph", format="gexf")
+                g.export_to_file(f"eq_graphs/{n}_{i}_graph_d{dim}", format="gexf")
                 correct_graphs_eq.append(g)
             elif mdim == dim + edim:
-                g.export_to_file(f"mdim_graphs/{n}_{i}_graph", format="gexf")
+                g.export_to_file(f"mdim_graphs/{n}_{i}_graph_d{dim}_e{edim}", format="gexf")
                 correct_graphs_mdim.append(g)
 
 
