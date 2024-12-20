@@ -8,11 +8,12 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{graphicx}
-\usepackage{float} 
+\usepackage{float}
 \usepackage[a4paper, margin=2.5cm]{geometry}
 \usepackage{titlesec}
 \usepackage{indentfirst}
 \usepackage{dsfont}
+\usepackage{tkz-graph}
 
 
 % Nastavitev za prikaz kode
@@ -54,20 +55,20 @@
 \begin{titlepage}
     \begin{center}
         \vspace*{5cm}
-            
+
         \Huge
         \textbf{Vozliščne, povezavne in mešane metrične dimenzije}
-            
+
         \vspace{0.5cm}
         \LARGE
         Projekt za finančni praktikum
-            
+
         \vspace{1.5cm}
-            
+
         \textbf{Lucija Tekavc}
-            
+
         \vfill
-      
+
         \Large
         Fakulteta za matematiko in fiziko\\
         20. 12. 2024
@@ -90,7 +91,7 @@
 \end{definicija}
 
 \begin{definicija}
-    \textsc{Razdalja do povezave} je razdalja do bližlega vozlišča na tej 
+    \textsc{Razdalja do povezave} je razdalja do bližlega vozlišča na tej
     povezavi, tj. $\forall s \in V(G). \forall e = uv \in E(G).d(s, e)=min\{d(s,u),d(s,v)\}$.
 \end{definicija}
 
@@ -137,7 +138,7 @@ def get_edge_to_vertex_distances(G):
             distances[i].values(), distances[j].values()
         )
         dist_to_edges[(i,j)] = {
-            index: min(tup) 
+            index: min(tup)
             for index, tup in enumerate(list_of_dist_to_uv)
         }
 
@@ -210,7 +211,7 @@ def get_mixed_metric_dimension(G, dist_to_edges):
     x = lp.new_variable(binary=True)
     lp.set_objective(sum(x[v] for v in V))
 
-    for (_, dist_to_i), (_, dist_to_j) in 
+    for (_, dist_to_i), (_, dist_to_j) in
         itertools.combinations(v_distances.items(), 2):
         vertices = [v for v in V if dist_to_i[v] != dist_to_j[v]]
         lp.add_constraint(sum(x[w] for w in vertices) >= 1)
@@ -287,8 +288,8 @@ metrične dimenzije, ko so te med seboj enake.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{eq_heatmap.png} 
-    \caption{Povezava med številom vozlišč in metrično dimenzijo pri $dim = edim = mdim$} 
+    \includegraphics[width=0.9\textwidth]{eq_heatmap.png}
+    \caption{Povezava med številom vozlišč in metrično dimenzijo pri $dim = edim = mdim$}
 \end{figure}
 
 \indent Za naše grafe odkrijemo, da zelo izstopa $dim(G) = 4$,
@@ -299,11 +300,135 @@ z maksimumom v 4. \\
 graf, ki vsaj za majhno število vozlišč potrdi hipotezo, da se vozliščna,
 povezavna in mešana dimenzija največkrat ujemajo, če se bližamo 4.
 
-\begin{figure}[H] 
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{eq_kdeplot.png} 
+    \includegraphics[width=0.8\textwidth]{eq_kdeplot.png}
     \caption{KDE graf po vozliščih za enake metrične dimenzije}
 \end{figure}
+
+\begin{figure}[H]
+\centering
+
+% 6_71_graph_d4
+\begin{tikzpicture}
+\definecolor{cv0}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv0}{rgb}{1.0,1.0,1.0}
+\definecolor{clv0}{rgb}{0.0,0.0,0.0}
+\definecolor{cv1}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv1}{rgb}{1.0,1.0,1.0}
+\definecolor{clv1}{rgb}{0.0,0.0,0.0}
+\definecolor{cv2}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv2}{rgb}{1.0,1.0,1.0}
+\definecolor{clv2}{rgb}{0.0,0.0,0.0}
+\definecolor{cv3}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv3}{rgb}{1.0,1.0,1.0}
+\definecolor{clv3}{rgb}{0.0,0.0,0.0}
+\definecolor{cv4}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv4}{rgb}{1.0,1.0,1.0}
+\definecolor{clv4}{rgb}{0.0,0.0,0.0}
+\definecolor{cv5}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv5}{rgb}{1.0,1.0,1.0}
+\definecolor{clv5}{rgb}{0.0,0.0,0.0}
+\definecolor{cv0v3}{rgb}{0.0,0.0,0.0}
+\definecolor{cv0v4}{rgb}{0.0,0.0,0.0}
+\definecolor{cv0v5}{rgb}{0.0,0.0,0.0}
+\definecolor{cv1v3}{rgb}{0.0,0.0,0.0}
+\definecolor{cv1v4}{rgb}{0.0,0.0,0.0}
+\definecolor{cv1v5}{rgb}{0.0,0.0,0.0}
+\definecolor{cv2v3}{rgb}{0.0,0.0,0.0}
+\definecolor{cv2v4}{rgb}{0.0,0.0,0.0}
+\definecolor{cv2v5}{rgb}{0.0,0.0,0.0}
+%
+\Vertex[style={minimum size=1.0cm,draw=cv0,fill=cfv0,text=clv0,shape=circle},LabelOut=false,L=\hbox{$0$},x=2.3599cm,y=2.433cm]{v0}
+\Vertex[style={minimum size=1.0cm,draw=cv1,fill=cfv1,text=clv1,shape=circle},LabelOut=false,L=\hbox{$1$},x=1.9066cm,y=5.0cm]{v1}
+\Vertex[style={minimum size=1.0cm,draw=cv2,fill=cfv2,text=clv2,shape=circle},LabelOut=false,L=\hbox{$2$},x=3.6937cm,y=0.0cm]{v2}
+\Vertex[style={minimum size=1.0cm,draw=cv3,fill=cfv3,text=clv3,shape=circle},LabelOut=false,L=\hbox{$3$},x=5.0cm,y=2.28cm]{v3}
+\Vertex[style={minimum size=1.0cm,draw=cv4,fill=cfv4,text=clv4,shape=circle},LabelOut=false,L=\hbox{$4$},x=0.0cm,y=1.1429cm]{v4}
+\Vertex[style={minimum size=1.0cm,draw=cv5,fill=cfv5,text=clv5,shape=circle},LabelOut=false,L=\hbox{$5$},x=4.5952cm,y=4.5939cm]{v5}
+%
+\Edge[lw=0.1cm,style={color=cv0v3,},](v0)(v3)
+\Edge[lw=0.1cm,style={color=cv0v4,},](v0)(v4)
+\Edge[lw=0.1cm,style={color=cv0v5,},](v0)(v5)
+\Edge[lw=0.1cm,style={color=cv1v3,},](v1)(v3)
+\Edge[lw=0.1cm,style={color=cv1v4,},](v1)(v4)
+\Edge[lw=0.1cm,style={color=cv1v5,},](v1)(v5)
+\Edge[lw=0.1cm,style={color=cv2v3,},](v2)(v3)
+\Edge[lw=0.1cm,style={color=cv2v4,},](v2)(v4)
+\Edge[lw=0.1cm,style={color=cv2v5,},](v2)(v5)
+%
+\end{tikzpicture}
+\caption{$dim(G) = edim(G) = mdim(G) = 4$}
+\end{figure}
+
+
+% 9_9941_graph_d3
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\definecolor{cv0}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv0}{rgb}{1.0,1.0,1.0}
+\definecolor{clv0}{rgb}{0.0,0.0,0.0}
+\definecolor{cv1}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv1}{rgb}{1.0,1.0,1.0}
+\definecolor{clv1}{rgb}{0.0,0.0,0.0}
+\definecolor{cv2}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv2}{rgb}{1.0,1.0,1.0}
+\definecolor{clv2}{rgb}{0.0,0.0,0.0}
+\definecolor{cv3}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv3}{rgb}{1.0,1.0,1.0}
+\definecolor{clv3}{rgb}{0.0,0.0,0.0}
+\definecolor{cv4}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv4}{rgb}{1.0,1.0,1.0}
+\definecolor{clv4}{rgb}{0.0,0.0,0.0}
+\definecolor{cv5}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv5}{rgb}{1.0,1.0,1.0}
+\definecolor{clv5}{rgb}{0.0,0.0,0.0}
+\definecolor{cv6}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv6}{rgb}{1.0,1.0,1.0}
+\definecolor{clv6}{rgb}{0.0,0.0,0.0}
+\definecolor{cv7}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv7}{rgb}{1.0,1.0,1.0}
+\definecolor{clv7}{rgb}{0.0,0.0,0.0}
+\definecolor{cv8}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv8}{rgb}{1.0,1.0,1.0}
+\definecolor{clv8}{rgb}{0.0,0.0,0.0}
+\definecolor{cv0v5}{rgb}{0.0,0.0,0.0}
+\definecolor{cv0v8}{rgb}{0.0,0.0,0.0}
+\definecolor{cv1v5}{rgb}{0.0,0.0,0.0}
+\definecolor{cv1v8}{rgb}{0.0,0.0,0.0}
+\definecolor{cv2v6}{rgb}{0.0,0.0,0.0}
+\definecolor{cv2v7}{rgb}{0.0,0.0,0.0}
+\definecolor{cv3v6}{rgb}{0.0,0.0,0.0}
+\definecolor{cv4v7}{rgb}{0.0,0.0,0.0}
+\definecolor{cv5v7}{rgb}{0.0,0.0,0.0}
+\definecolor{cv6v8}{rgb}{0.0,0.0,0.0}
+%
+\Vertex[style={minimum size=1.0cm,draw=cv0,fill=cfv0,text=clv0,shape=circle},LabelOut=false,L=\hbox{$0$},x=1.471cm,y=0.0cm]{v0}
+\Vertex[style={minimum size=1.0cm,draw=cv1,fill=cfv1,text=clv1,shape=circle},LabelOut=false,L=\hbox{$1$},x=0.9687cm,y=0.4376cm]{v1}
+\Vertex[style={minimum size=1.0cm,draw=cv2,fill=cfv2,text=clv2,shape=circle},LabelOut=false,L=\hbox{$2$},x=2.4826cm,y=3.3262cm]{v2}
+\Vertex[style={minimum size=1.0cm,draw=cv3,fill=cfv3,text=clv3,shape=circle},LabelOut=false,L=\hbox{$3$},x=5.0cm,y=2.0852cm]{v3}
+\Vertex[style={minimum size=1.0cm,draw=cv4,fill=cfv4,text=clv4,shape=circle},LabelOut=false,L=\hbox{$4$},x=0.0cm,y=5.0cm]{v4}
+\Vertex[style={minimum size=1.0cm,draw=cv5,fill=cfv5,text=clv5,shape=circle},LabelOut=false,L=\hbox{$5$},x=0.6568cm,y=1.5848cm]{v5}
+\Vertex[style={minimum size=1.0cm,draw=cv6,fill=cfv6,text=clv6,shape=circle},LabelOut=false,L=\hbox{$6$},x=3.5487cm,y=1.9714cm]{v6}
+\Vertex[style={minimum size=1.0cm,draw=cv7,fill=cfv7,text=clv7,shape=circle},LabelOut=false,L=\hbox{$7$},x=0.9286cm,y=3.5553cm]{v7}
+\Vertex[style={minimum size=1.0cm,draw=cv8,fill=cfv8,text=clv8,shape=circle},LabelOut=false,L=\hbox{$8$},x=2.4454cm,y=0.5772cm]{v8}
+%
+\Edge[lw=0.1cm,style={color=cv0v5,},](v0)(v5)
+\Edge[lw=0.1cm,style={color=cv0v8,},](v0)(v8)
+\Edge[lw=0.1cm,style={color=cv1v5,},](v1)(v5)
+\Edge[lw=0.1cm,style={color=cv1v8,},](v1)(v8)
+\Edge[lw=0.1cm,style={color=cv2v6,},](v2)(v6)
+\Edge[lw=0.1cm,style={color=cv2v7,},](v2)(v7)
+\Edge[lw=0.1cm,style={color=cv3v6,},](v3)(v6)
+\Edge[lw=0.1cm,style={color=cv4v7,},](v4)(v7)
+\Edge[lw=0.1cm,style={color=cv5v7,},](v5)(v7)
+\Edge[lw=0.1cm,style={color=cv6v8,},](v6)(v8)
+%
+\end{tikzpicture}
+\caption{$dim(G) = edim(G) = mdim(G) = 3$}
+\end{figure}
+
+
 
 \subsection{$mdim(G) = dim(G) + edim(G)$}
 \vspace{0.5cm}
@@ -316,15 +441,155 @@ kar ne preseneča, saj je $mdim(G) = dim(G) + edim(G)$, torej bi bilo
 bolj čudno, če bi rastli le dve od teh dimenzij.\\
 \indent Poleg tega opazimo, da dimenzije s številom vozlišč večajo.
 
-\begin{figure} 
+% 8_1371_graph_d2_e3
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\definecolor{cv0}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv0}{rgb}{1.0,1.0,1.0}
+\definecolor{clv0}{rgb}{0.0,0.0,0.0}
+\definecolor{cv1}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv1}{rgb}{1.0,1.0,1.0}
+\definecolor{clv1}{rgb}{0.0,0.0,0.0}
+\definecolor{cv2}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv2}{rgb}{1.0,1.0,1.0}
+\definecolor{clv2}{rgb}{0.0,0.0,0.0}
+\definecolor{cv3}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv3}{rgb}{1.0,1.0,1.0}
+\definecolor{clv3}{rgb}{0.0,0.0,0.0}
+\definecolor{cv4}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv4}{rgb}{1.0,1.0,1.0}
+\definecolor{clv4}{rgb}{0.0,0.0,0.0}
+\definecolor{cv5}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv5}{rgb}{1.0,1.0,1.0}
+\definecolor{clv5}{rgb}{0.0,0.0,0.0}
+\definecolor{cv6}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv6}{rgb}{1.0,1.0,1.0}
+\definecolor{clv6}{rgb}{0.0,0.0,0.0}
+\definecolor{cv7}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv7}{rgb}{1.0,1.0,1.0}
+\definecolor{clv7}{rgb}{0.0,0.0,0.0}
+\definecolor{cv0v4}{rgb}{0.0,0.0,0.0}
+\definecolor{cv0v6}{rgb}{0.0,0.0,0.0}
+\definecolor{cv1v5}{rgb}{0.0,0.0,0.0}
+\definecolor{cv1v7}{rgb}{0.0,0.0,0.0}
+\definecolor{cv2v5}{rgb}{0.0,0.0,0.0}
+\definecolor{cv2v7}{rgb}{0.0,0.0,0.0}
+\definecolor{cv3v6}{rgb}{0.0,0.0,0.0}
+\definecolor{cv3v7}{rgb}{0.0,0.0,0.0}
+\definecolor{cv5v6}{rgb}{0.0,0.0,0.0}
+\definecolor{cv6v7}{rgb}{0.0,0.0,0.0}
+%
+\Vertex[style={minimum size=1.0cm,draw=cv0,fill=cfv0,text=clv0,shape=circle},LabelOut=false,L=\hbox{$0$},x=3.6644cm,y=4.0045cm]{v0}
+\Vertex[style={minimum size=1.0cm,draw=cv1,fill=cfv1,text=clv1,shape=circle},LabelOut=false,L=\hbox{$1$},x=0.7576cm,y=0.2199cm]{v1}
+\Vertex[style={minimum size=1.0cm,draw=cv2,fill=cfv2,text=clv2,shape=circle},LabelOut=false,L=\hbox{$2$},x=0.0cm,y=0.0cm]{v2}
+\Vertex[style={minimum size=1.0cm,draw=cv3,fill=cfv3,text=clv3,shape=circle},LabelOut=false,L=\hbox{$3$},x=0.5853cm,y=3.7239cm]{v3}
+\Vertex[style={minimum size=1.0cm,draw=cv4,fill=cfv4,text=clv4,shape=circle},LabelOut=false,L=\hbox{$4$},x=5.0cm,y=5.0cm]{v4}
+\Vertex[style={minimum size=1.0cm,draw=cv5,fill=cfv5,text=clv5,shape=circle},LabelOut=false,L=\hbox{$5$},x=1.6012cm,y=0.6367cm]{v5}
+\Vertex[style={minimum size=1.0cm,draw=cv6,fill=cfv6,text=clv6,shape=circle},LabelOut=false,L=\hbox{$6$},x=1.8533cm,y=2.7604cm]{v6}
+\Vertex[style={minimum size=1.0cm,draw=cv7,fill=cfv7,text=clv7,shape=circle},LabelOut=false,L=\hbox{$7$},x=0.5051cm,y=1.846cm]{v7}
+%
+\Edge[lw=0.1cm,style={color=cv0v4,},](v0)(v4)
+\Edge[lw=0.1cm,style={color=cv0v6,},](v0)(v6)
+\Edge[lw=0.1cm,style={color=cv1v5,},](v1)(v5)
+\Edge[lw=0.1cm,style={color=cv1v7,},](v1)(v7)
+\Edge[lw=0.1cm,style={color=cv2v5,},](v2)(v5)
+\Edge[lw=0.1cm,style={color=cv2v7,},](v2)(v7)
+\Edge[lw=0.1cm,style={color=cv3v6,},](v3)(v6)
+\Edge[lw=0.1cm,style={color=cv3v7,},](v3)(v7)
+\Edge[lw=0.1cm,style={color=cv5v6,},](v5)(v6)
+\Edge[lw=0.1cm,style={color=cv6v7,},](v6)(v7)
+%
+\end{tikzpicture}
+\caption{$dim(G) = 2, edim(G) = 3, mdim(G) = 5$}
+\end{figure}
+
+
+% 10_94590_graph_d2_e3
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\definecolor{cv0}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv0}{rgb}{1.0,1.0,1.0}
+\definecolor{clv0}{rgb}{0.0,0.0,0.0}
+\definecolor{cv1}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv1}{rgb}{1.0,1.0,1.0}
+\definecolor{clv1}{rgb}{0.0,0.0,0.0}
+\definecolor{cv2}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv2}{rgb}{1.0,1.0,1.0}
+\definecolor{clv2}{rgb}{0.0,0.0,0.0}
+\definecolor{cv3}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv3}{rgb}{1.0,1.0,1.0}
+\definecolor{clv3}{rgb}{0.0,0.0,0.0}
+\definecolor{cv4}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv4}{rgb}{1.0,1.0,1.0}
+\definecolor{clv4}{rgb}{0.0,0.0,0.0}
+\definecolor{cv5}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv5}{rgb}{1.0,1.0,1.0}
+\definecolor{clv5}{rgb}{0.0,0.0,0.0}
+\definecolor{cv6}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv6}{rgb}{1.0,1.0,1.0}
+\definecolor{clv6}{rgb}{0.0,0.0,0.0}
+\definecolor{cv7}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv7}{rgb}{1.0,1.0,1.0}
+\definecolor{clv7}{rgb}{0.0,0.0,0.0}
+\definecolor{cv8}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv8}{rgb}{1.0,1.0,1.0}
+\definecolor{clv8}{rgb}{0.0,0.0,0.0}
+\definecolor{cv9}{rgb}{0.0,0.0,0.0}
+\definecolor{cfv9}{rgb}{1.0,1.0,1.0}
+\definecolor{clv9}{rgb}{0.0,0.0,0.0}
+\definecolor{cv0v5}{rgb}{0.0,0.0,0.0}
+\definecolor{cv0v8}{rgb}{0.0,0.0,0.0}
+\definecolor{cv0v9}{rgb}{0.0,0.0,0.0}
+\definecolor{cv1v6}{rgb}{0.0,0.0,0.0}
+\definecolor{cv1v9}{rgb}{0.0,0.0,0.0}
+\definecolor{cv2v7}{rgb}{0.0,0.0,0.0}
+\definecolor{cv2v8}{rgb}{0.0,0.0,0.0}
+\definecolor{cv3v7}{rgb}{0.0,0.0,0.0}
+\definecolor{cv3v9}{rgb}{0.0,0.0,0.0}
+\definecolor{cv4v8}{rgb}{0.0,0.0,0.0}
+\definecolor{cv5v9}{rgb}{0.0,0.0,0.0}
+\definecolor{cv7v8}{rgb}{0.0,0.0,0.0}
+%
+\Vertex[style={minimum size=1.0cm,draw=cv0,fill=cfv0,text=clv0,shape=circle},LabelOut=false,L=\hbox{$0$},x=3.7651cm,y=1.8901cm]{v0}
+\Vertex[style={minimum size=1.0cm,draw=cv1,fill=cfv1,text=clv1,shape=circle},LabelOut=false,L=\hbox{$1$},x=1.1051cm,y=4.096cm]{v1}
+\Vertex[style={minimum size=1.0cm,draw=cv2,fill=cfv2,text=clv2,shape=circle},LabelOut=false,L=\hbox{$2$},x=0.6361cm,y=0.3434cm]{v2}
+\Vertex[style={minimum size=1.0cm,draw=cv3,fill=cfv3,text=clv3,shape=circle},LabelOut=false,L=\hbox{$3$},x=0.0cm,y=2.0889cm]{v3}
+\Vertex[style={minimum size=1.0cm,draw=cv4,fill=cfv4,text=clv4,shape=circle},LabelOut=false,L=\hbox{$4$},x=5.0cm,y=0.0cm]{v4}
+\Vertex[style={minimum size=1.0cm,draw=cv5,fill=cfv5,text=clv5,shape=circle},LabelOut=false,L=\hbox{$5$},x=4.8661cm,y=2.66cm]{v5}
+\Vertex[style={minimum size=1.0cm,draw=cv6,fill=cfv6,text=clv6,shape=circle},LabelOut=false,L=\hbox{$6$},x=0.4838cm,y=5.0cm]{v6}
+\Vertex[style={minimum size=1.0cm,draw=cv7,fill=cfv7,text=clv7,shape=circle},LabelOut=false,L=\hbox{$7$},x=0.3708cm,y=1.081cm]{v7}
+\Vertex[style={minimum size=1.0cm,draw=cv8,fill=cfv8,text=clv8,shape=circle},LabelOut=false,L=\hbox{$8$},x=3.0673cm,y=0.7629cm]{v8}
+\Vertex[style={minimum size=1.0cm,draw=cv9,fill=cfv9,text=clv9,shape=circle},LabelOut=false,L=\hbox{$9$},x=2.1254cm,y=2.8894cm]{v9}
+%
+\Edge[lw=0.1cm,style={color=cv0v5,},](v0)(v5)
+\Edge[lw=0.1cm,style={color=cv0v8,},](v0)(v8)
+\Edge[lw=0.1cm,style={color=cv0v9,},](v0)(v9)
+\Edge[lw=0.1cm,style={color=cv1v6,},](v1)(v6)
+\Edge[lw=0.1cm,style={color=cv1v9,},](v1)(v9)
+\Edge[lw=0.1cm,style={color=cv2v7,},](v2)(v7)
+\Edge[lw=0.1cm,style={color=cv2v8,},](v2)(v8)
+\Edge[lw=0.1cm,style={color=cv3v7,},](v3)(v7)
+\Edge[lw=0.1cm,style={color=cv3v9,},](v3)(v9)
+\Edge[lw=0.1cm,style={color=cv4v8,},](v4)(v8)
+\Edge[lw=0.1cm,style={color=cv5v9,},](v5)(v9)
+\Edge[lw=0.1cm,style={color=cv7v8,},](v7)(v8)
+%
+\end{tikzpicture}
+\caption{$dim(G) = 2, edim(G) = 3, mdim(G) = 5$}
+\end{figure}
+
+
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{st_vozl_mean.png} 
+    \includegraphics[width=0.7\textwidth]{st_vozl_mean.png}
     \caption{Povprečne metrične dimenzije pri vozliščih}
 \end{figure}
 
-\begin{figure}[H] 
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{mdim_pairgraph.png} 
+    \includegraphics[width=0.9\textwidth]{mdim_pairgraph.png}
     \caption{Korelacija metričnih dimenzij glede na število vozlišč}
 \end{figure}
 
