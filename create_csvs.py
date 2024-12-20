@@ -1,4 +1,3 @@
-
 import os
 import csv
 
@@ -19,12 +18,12 @@ with open("./csvs/eq_graphs.csv", "w") as csvfile:
 with open("./csvs/mdim_graphs.csv", "w") as csvfile:
     writer = csv.DictWriter(
         csvfile,
-        fieldnames=["vertices", "index", "metric_dim",  "edge_dim",  "mixed_dim"]
+        fieldnames=["vertices", "index", "dim",  "edim",  "mdim"]
     )
     writer.writeheader()
     for filename in os.listdir("./mdim_graphs/"):
         n, ix, _, dim, edim = filename.split("_")
-        dim, edim = dim.removeprefix("d"), edim.removeprefix("e")
+        dim, edim = int(dim.removeprefix("d")), int(edim.removeprefix("e"))
         mdim = dim + edim
-        row = dict(vertices=n, index=ix, metric_dim=dim, edge_dim=edim, mixed_dim=mdim)
+        row = dict(vertices=n, index=ix, dim=dim, edim=edim, mdim=mdim)
         writer.writerow(row)
